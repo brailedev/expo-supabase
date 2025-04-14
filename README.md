@@ -29,6 +29,7 @@ It says there that this will not work in Expo Go. However, it can be done in dev
 Follow [this](https://docs.expo.dev/guides/local-app-development/#local-builds-with-expo-dev-client) guide for local development builds.
 
 You'll know you're in development build when running `npm run start` shows this:
+
 ![image](https://github.com/user-attachments/assets/0d475b56-6395-41bd-9228-b5b3c77393f8)
 
 
