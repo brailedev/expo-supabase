@@ -22,7 +22,7 @@ Follow this guide: <https://docs.github.com/en/migrations/importing-source-code/
 
 For basic authentication using google email, use the [RN Google Sign In](https://react-native-google-signin.github.io/) package. Follow the guide for react native expo [here](https://react-native-google-signin.github.io/docs/setting-up/expo).
 
-It says there that this will not work in Expo Go. However, it can be done in development build.
+Before anything else, make sure to setup development build since this will not work in Expo Go. Then Google credentials after that.
 
 ## How to setup development build in expo (locally, not in EAS)
 
@@ -32,5 +32,19 @@ You'll know you're in development build when running `npm run start` shows this:
 
 ![image](https://github.com/user-attachments/assets/0d475b56-6395-41bd-9228-b5b3c77393f8)
 
+## Setting up Google credentials
+
+To be able to authenticate using Google, you need to setup APIs and Services in [Google Console](https://console.cloud.google.com/).
+Create an account, then Create Project.
+
+Once a project is created, in here it shows project name is `expo-supabase`, click on the API and Services
+
+![image](https://github.com/user-attachments/assets/3b7ef6a6-06ad-4fb5-b6c4-d45c16a16c74)
+
+Go to Credentials and create 2 Oauth clients: one for Application Type as Web Application and one as IOS
+
+![image](https://github.com/user-attachments/assets/fc864ba4-13d6-4771-95b2-b00796c6755a)
+
+### Web Application
 
 </details>
