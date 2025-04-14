@@ -47,4 +47,11 @@ Go to Credentials and create 2 Oauth clients: one for Application Type as Web Ap
 
 ### Web Application
 
+For the web application, name it however you want. Leave the authorized origins as blank. In the Redirect url, add the redirect url for the auth service you are using. In this project, 
+i'm using expo.
+
+
+![image](https://github.com/user-attachments/assets/c0499db0-4dc9-4b73-a608-5f4e09d2afd8)
+
+
 </details>
