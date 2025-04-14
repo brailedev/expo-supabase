@@ -50,8 +50,14 @@ Go to Credentials and create 2 Oauth clients: one for Application Type as Web Ap
 For the web application, name it however you want. Leave the authorized origins as blank. In the Redirect url, add the redirect url for the auth service you are using. In this project, 
 i'm using expo.
 
-
 ![image](https://github.com/user-attachments/assets/c0499db0-4dc9-4b73-a608-5f4e09d2afd8)
+
+### IOS Application
+
+For ios, you're only required to add a Bundle ID (the rest can be added when the app will be deployed in the app store). Name the Bundle ID in a reverse url like format, `com.<username>.<appname>`
+
+![image](https://github.com/user-attachments/assets/6f3838ae-506d-413e-b59d-ee917f189eec)
+
 
 
 </details>
