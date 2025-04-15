@@ -191,4 +191,16 @@ const styles = StyleSheet.create({
 
 ```
 
+## Rebuild the App
+
+Rebuild the app by running: 
+```
+npx expo prebuild --clean
+```
+
+Then run this to start 
+```
+npx expo run:ios
+```
+
 </details>
