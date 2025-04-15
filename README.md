@@ -1,7 +1,7 @@
 > Please note that the following setup is for someone using a Mac machine and for ios development. For any future changes, this note will be updated as well
 
 <details>
-  <summary><h1>INITIAL SETUP</h1></summary>
+  <summary><h1>Initial Setup and Basic Auth</h1></summary>
   
 ## Basic Authentication
 
@@ -20,7 +20,7 @@ Follow this guide: <https://docs.github.com/en/migrations/importing-source-code/
   
 ## Google
 
-For basic authentication using google email, use the [RN Google Sign In](https://react-native-google-signin.github.io/) package. Follow the guide for react native expo [here](https://react-native-google-signin.github.io/docs/setting-up/expo).
+For authentication using google email, use the [RN Google Sign In](https://react-native-google-signin.github.io/) package. Follow the guide for react native expo [here](https://react-native-google-signin.github.io/docs/setting-up/expo).
 
 Before anything else, make sure to setup development build since this will not work in Expo Go. Then Google credentials after that.
 
@@ -59,6 +59,23 @@ You will also be provided with a client Id and ios url scheme. same with the web
 
 ![image](https://github.com/user-attachments/assets/6f3838ae-506d-413e-b59d-ee917f189eec)
 
+In time of writing, the implementation here uses the [Original Google Signin](https://react-native-google-signin.github.io/docs/original) from RN Google Signin.
 
+In your project's app.json file, add this:
+
+```
+{
+  "expo": {
+    "plugins": [
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": <ios url scheme generated from google console>
+        }
+      ]
+    ]
+  }
+}
+```
 
 </details>
