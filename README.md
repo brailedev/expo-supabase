@@ -59,9 +59,8 @@ You will also be provided with a client Id and ios url scheme. same with the web
 
 ![image](https://github.com/user-attachments/assets/6f3838ae-506d-413e-b59d-ee917f189eec)
 
-</details>
-<details>
-<summary><h1>Project Setup</h1></summary>
+## Project Setup for Google Auth
+
 In time of writing, the implementation here uses the [Original Google Signin](https://react-native-google-signin.github.io/docs/original) from RN Google Signin.
 
 In your project's app.json file, add this:
