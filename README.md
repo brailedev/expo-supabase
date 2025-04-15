@@ -59,6 +59,9 @@ You will also be provided with a client Id and ios url scheme. same with the web
 
 ![image](https://github.com/user-attachments/assets/6f3838ae-506d-413e-b59d-ee917f189eec)
 
+</details>
+<details>
+<summary><h1>Project Setup</h1></summary>
 In time of writing, the implementation here uses the [Original Google Signin](https://react-native-google-signin.github.io/docs/original) from RN Google Signin.
 
 In your project's app.json file, add this:
@@ -66,16 +69,127 @@ In your project's app.json file, add this:
 ```
 {
   "expo": {
+    "ios": {
+      "bundleIdentifier": <same as the Bundle Id setup in Google Console>
+    },
     "plugins": [
       [
         "@react-native-google-signin/google-signin",
         {
-          "iosUrlScheme": <ios url scheme generated from google console>
+          "iosUrlScheme": <ios url scheme generated from Google Console>
         }
       ]
     ]
   }
 }
+```
+
+Install: 
+```
+npm i @react-native-google-signin/google-signin@latest
+```
+
+Inside the file where the Google Auth will run, do something like this:
+In this project, i've placed it in GoogleAuth.js using supabase
+
+```
+import React, { useState } from "react";
+import { Button, Text, View, StyleSheet } from "react-native";
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+import { supabase } from "../lib/supabase";
+
+WebBrowser.maybeCompleteAuthSession();
+
+export default function GoogleAuth() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // Replace with your Google client ID
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId:
+      <ios client id from google console>, // Your Google Cloud Console client ID
+    webClientId:
+      <web client id from google console>, // Optional if you have a web version
+  });
+
+  React.useEffect(() => {
+    if (response?.type === "success") {
+      handleSignIn(response.authentication.idToken);
+    }
+  }, [response]);
+
+  async function handleSignIn(idToken) {
+    try {
+      setLoading(true);
+      console.log({ idToken });
+      // Exchange Google access token for Supabase session
+      const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: "google",
+        token: idToken,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setUser(data.user);
+    } catch (error) {
+      console.error("Error signing in with Google:", error.message);
+      alert("Error signing in with Google: " + error.message);
+    } finally {
+      console.log({ user });
+      setLoading(false);
+    }
+  }
+
+  async function handleSignOut() {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      setUser(null);
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+      alert("Error signing out: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Google Authentication</Text>
+      {user ? (
+        <View>
+          <Text style={styles.text}>Welcome, {user.email}</Text>
+          <Button
+            title={loading ? "Signing out..." : "Sign out"}
+            onPress={handleSignOut}
+            disabled={loading}
+          />
+        </View>
+      ) : (
+        <Button
+          title={loading ? "Signing in..." : "Sign in with Google"}
+          onPress={() => promptAsync()}
+          disabled={!request || loading}
+        />
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+});
+
 ```
 
 </details>
