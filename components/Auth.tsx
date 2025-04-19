@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "@rneui/themed";
+import GoogleAuth from "./GoogleAuth";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -35,6 +36,16 @@ export default function Auth() {
     setLoading(false);
   }
 
+  async function signInWithGoogle() {
+    setLoading(true);
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+
+    if (error) Alert.alert(error.message);
+    console.log({ data });
+    setLoading(false);
+  }
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -71,6 +82,10 @@ export default function Auth() {
           disabled={loading}
           onPress={() => signUpWithEmail()}
         />
+      </View>
+
+      <View style={[styles.verticallySpaced, styles.mt20]}>
+        <GoogleAuth />
       </View>
     </View>
   );
